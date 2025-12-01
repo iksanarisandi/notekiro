@@ -9,6 +9,8 @@ import Header from "@/components/Header";
 import { getNoteById, updateNote, deleteNote } from "@/lib/actions";
 import { Note } from "@/types";
 
+export const runtime = 'edge';
+
 export default function NoteDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const router = useRouter();

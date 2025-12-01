@@ -3,6 +3,8 @@ import { getNotes } from "@/lib/actions";
 import Header from "@/components/Header";
 import NoteCard from "@/components/NoteCard";
 
+export const runtime = 'edge';
+
 export default async function Home() {
   const result = await getNotes();
 
