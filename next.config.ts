@@ -2,10 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Configure for Cloudflare Pages deployment
-  experimental: {
-    // Use edge runtime for Cloudflare Workers compatibility
-    runtime: 'experimental-edge',
-  },
+  // Edge runtime is configured per-route using export const runtime = 'edge'
 };
 
 export default nextConfig;

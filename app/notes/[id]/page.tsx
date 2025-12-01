@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { use } from "react";
 import NoteForm from "@/components/NoteForm";
 import DeleteConfirmDialog from "@/components/DeleteConfirmDialog";
 import Header from "@/components/Header";
 import { getNoteById, updateNote, deleteNote } from "@/lib/actions";
 import { Note } from "@/types";
 
-export default function NoteDetailPage({ params }: { params: { id: string } }) {
+export default function NoteDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
   const router = useRouter();
   const [note, setNote] = useState<Note | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +26,7 @@ export default function NoteDetailPage({ params }: { params: { id: string } }) {
       setError(null);
 
       try {
-        const result = await getNoteById(params.id);
+        const result = await getNoteById(resolvedParams.id);
 
         if (result.success) {
           setNote(result.data);
@@ -41,14 +43,14 @@ export default function NoteDetailPage({ params }: { params: { id: string } }) {
     };
 
     fetchNote();
-  }, [params.id]);
+  }, [resolvedParams.id]);
 
   const handleSubmit = async (title: string, content: string) => {
     setIsSubmitting(true);
     setError(null);
 
     try {
-      const result = await updateNote(params.id, { title, content });
+      const result = await updateNote(resolvedParams.id, { title, content });
 
       if (result.success) {
         // Update local state with new data
@@ -80,7 +82,7 @@ export default function NoteDetailPage({ params }: { params: { id: string } }) {
     setError(null);
 
     try {
-      const result = await deleteNote(params.id);
+      const result = await deleteNote(resolvedParams.id);
 
       if (result.success) {
         // Redirect to dashboard after successful deletion
