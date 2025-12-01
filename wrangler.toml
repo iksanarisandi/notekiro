@@ -4,7 +4,7 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "notes-db"
-database_id = "placeholder-database-id"
+database_id = "eb26eb38-b266-43e6-af90-fb8f71252cc6"
 
 # Environment variables for Clerk authentication
 [vars]
